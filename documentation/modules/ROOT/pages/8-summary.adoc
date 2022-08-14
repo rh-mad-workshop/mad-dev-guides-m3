@@ -23,5 +23,3 @@ image::modernized_architecture.png[modernized_architecture]
 * https://www.redhat.com/en/resources/java-app-modernization-with-openshift-e-book[eBook - Plan your Java application modernization journey^]
 * https://kubebyexample.com/en/learning-paths/migrating-kubernetes/assess-and-refactor-tackle[Migrating Kubernetes Learning Path^]
 
-⬅️ link:./7-enhance-apps.adoc[7. Enhance Applications with Managed Services]
-
