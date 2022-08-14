@@ -1,0 +1,6 @@
+name: mad-dev-guides-m3
+title: Module 3
+version: main
+nav:
+  - modules/ROOT/nav.adoc
+start_page: ROOT:1-introduction.adoc

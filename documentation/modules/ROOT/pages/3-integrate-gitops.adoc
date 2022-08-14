@@ -1,0 +1,107 @@
+= 3. Integrate OpenShift GitOps - 25 minutes
+:imagesdir: ../assets/images
+
+== Goals of this lab
+
+The goal is that you will build and deploy the modernized customer application to OpenShift using link:https://access.redhat.com/documentation/en-us/openshift_container_platform/4.11/html-single/cicd/index#about-redhat-openshift-gitops_understanding-openshift-gitops[OpenShift GitOps (ArgCD)^].
+
+* Update the configuration for the *gateway* service to now point to the modernized *customers* service.
+* Demonstrate that your *frontend* service still works as before.
+
+== 3.1. Sync the Gateway application in ArgoCD
+
+=== 3.1.1 Why OpenShift GitOps?
+
+`GitOps` in short is a set of practices to use *Git pull requests* to manage infrastructure and application configurations. Git repository in GitOps is considered the only source of truth and contains the entire state of the system so that the trail of changes to the system state are visible and auditable.
+
+Traceability of changes in GitOps is no novelty in itself as this approach is almost universally employed for the application source code. However GitOps advocates applying the same principles (`reviews`, `pull requests`, `tagging`, etc) to infrastructure and application configuration so that teams can benefit from the same assurance as they do for the application source code.
+
+Although there is no precise definition or agreed upon set of rules, the following principles are an approximation of what constitutes a GitOps practice:
+
+* Declarative description of the system is stored in Git (configs, monitoring, etc)
+*Changes to the state are made via pull requests
+*Git push reconciled with the state of the running system with the state in the Git repository
+
+=== 3.1.2 Update the Gateway Configuration
+
+Go back to the VS Code server and open the `application.yaml` file in *gatway/helm/config* directory. Replace *customers' URL* with the following URL.
+
+[NOTE]
+====
+You must update the _application.yaml_ file in the `gateway` project rather than any other projects that you're working previously.
+====
+
+[.console-input]
+[source,yaml]
+----
+http://customers:8080/customers-tomcat-0.0.1-SNAPSHOT/customers
+----
+
+image::update-customers-url.png[update-customers-url]
+
+Switch to the `Source Control` menu in VSCode. Click on `+` button to add the changes (_application.yaml_).
+
+Type `Update customers url` in the comment. Then, commit it(e.g. _Command + Enter on macOS_) and click on `Sync Changes`.
+
+image::update-customers-url-push.png[update-customers-url-push]
+
+Access the ArgoCD admin console by clicking on `Open URL` over the *argocd-server* pod.
+
+image::argocd-server-route.png[argocd-server-route]
+
+Then you will see the ArgoCD login page.
+
+=== 3.1.3 Sync the configuration change by ArgoCD
+
+Click on `LOG VIA OPENSHIFT` button.
+
+image::argocd-login.png[argocd-login]
+
+Then, enter your OpenShift login credentials.
+
+* Username: `%USERID%`
+* Password: `{openshift-password}`
+
+you will see all applications such as _frontend, gateway, inventory, orders, and customers_. Click on `gateway` application.
+
+image::argocd-gateway.png[argocd-gateway]
+
+When the code change (e.g. _application.yaml_) completes in _Gitea_ server, ArgoCD starts syncing the gateway application. It usually takes less than 3 minutes to complete the sync. You can also click on `REFRESH` manually to sync the change instantly.
+
+image::argocd-sync.png[argocd-sync]
+
+Go to the OpenShift admin console to confirm if the `gateway-config` is updated based on the code change.
+
+image::gateway-new-configmap.png[gateway-new-configmap]
+
+== 3.4. Revisit the GLOBEX web page
+
+Let's go back to the `Customers` in the *GLOBEX* web page. You can find the frontend URL by running the following `oc` command in terminal on the _VS Code server_.
+
+[.console-input]
+[source,bash]
+----
+oc get route ordersfrontend
+----
+
+The output should look like:
+
+[.console-output]
+[source,bash]
+----
+NAME             HOST/PORT                                                                PATH   SERVICES         PORT   TERMINATION     WILDCARD
+ordersfrontend   ordersfrontend-retail-user1.apps.cluster-mkddz.sandbox1883.opentlc.com          ordersfrontend   web    edge/Redirect   None
+----
+
+Open a new web browser to paste the above URL. Then, you can see the same customers data as you had in the VM.
+
+image::frontend.png[Frontend]
+
+[NOTE]
+====
+You might see `Unknown` result for customers data since the customers application can't access the database on OpenShift Virtualization with an error - `java.sql.SQLSyntaxErrorException: ORA-00942: table or view does not exist`. In that case, restart the customer pod via deleting the pod in OpenShift admin console.
+====
+
+== Summary
+
+You have now successfully deployed the new *customers* application with integrating OpenShift Pipeline and GitOps for the continuous delivery automation. You'll learn Learn how to extend an application using API management and implement an event driven architecture in `module 4 and 5`.
