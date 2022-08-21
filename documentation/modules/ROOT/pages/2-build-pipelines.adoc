@@ -147,11 +147,12 @@ Run the following command in the VS Code server terminal.
 oc project retail-%USERID% && \
 oc label deployment/inventory app.kubernetes.io/part-of=inventory app.openshift.io/runtime=quarkus --overwrite && \
 oc label deployment/postgresql-inventory app.kubernetes.io/part-of=inventory app.openshift.io/runtime=postgresql --overwrite && \
-oc annotate deployment/inventory app.openshift.io/connects-to=postgresql-inventory --overwrite && \
+oc annotate deployment/inventory app.openshift.io/connects-to='[{"apiVersion":"apps/v1","kind":"Deployment","name":"postgresql-inventory"}]' --overwrite && \
 oc label deployment/orders app.kubernetes.io/part-of=orders app.openshift.io/runtime=spring --overwrite && \
 oc label deployment/postgresql-orders app.kubernetes.io/part-of=orders app.openshift.io/runtime=postgresql --overwrite && \
-oc annotate deployment/orders app.openshift.io/connects-to=postgresql-orders --overwrite && \
+oc annotate deployment/orders app.openshift.io/connects-to='[{"apiVersion":"apps/v1","kind":"Deployment","name":"postgresql-orders"}]' --overwrite && \
 oc label deployment/customers app.kubernetes.io/part-of=customers app.openshift.io/runtime=tomcat --overwrite && \
+oc annotate deployment/customers app.openshift.io/connects-to='[{"apiVersion":"apps/v1","kind":"VirtualMachine","name":"oracle-database"}]' --overwrite && \
 oc label deployment/ordersfrontend app.kubernetes.io/part-of=ordersfrontend app.openshift.io/runtime=nodejs --overwrite && \
 oc annotate deployment/ordersfrontend app.openshift.io/connects-to=gateway --overwrite && \
 oc label deployment/gateway app.kubernetes.io/part-of=gateway app.openshift.io/runtime=spring --overwrite && \
