@@ -1,4 +1,4 @@
-= 2. Build CI/CD Pipelines - 25 minutes
+= 2. Build CI/CD Pipelines - 35 minutes
 :imagesdir: ../assets/images
 
 == Goals of this lab
@@ -70,7 +70,7 @@ image::argocd-application-update.png[argocd-application-update]
 
 Click on `SAVE`. Then, close the popup window by clicking `X` on the right top.
 
-Now you will see the `OutOfSync` status of the customers-tomcat-gitops application because you just only updated the ArgoCD's application parameter that is different than link:https://console-openshift-console.apps.%SUBDOMAIN%/k8s/ns/retail-%USERID%/secrets/customers-secret[customers-secret^] in the retail-%USERID% project. 
+Now you will see the `OutOfSync` status of the `customers-tomcat-gitops` application because you just only updated the ArgoCD's application parameter that is different than link:https://console-openshift-console.apps.%SUBDOMAIN%/k8s/ns/retail-%USERID%/secrets/customers-secret[customers-secret^] in the retail-%USERID% project. 
 
 image::argocd-application-outofsync.png[argocd-application-outofsync]
 
