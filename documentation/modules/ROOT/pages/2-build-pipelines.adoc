@@ -11,7 +11,7 @@ The goal is that you will build and deploy the modernized customer application t
 
 == 2.1. Update Oracle DMBS Connection using Helm
 
-=== 2.1.1. Why OpenShift with Helm?
+=== 2.1.1. Why OpenShift with Helm? 
 
 https://docs.openshift.com/container-platform/4.10/applications/working_with_helm_charts/understanding-helm.html[Helm^] is a package and install manager that standardizes and simplifies packaging and deployment of containerized applications with Kubernetes, anywhere in the hybrid cloud. Helm lets developers package their applications so that they can be easily shared and deployed by anyone in their organization and beyond. 
 
