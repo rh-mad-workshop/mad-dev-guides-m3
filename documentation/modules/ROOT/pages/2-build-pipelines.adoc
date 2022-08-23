@@ -32,39 +32,59 @@ Take a look at `persistence.properties` file to understand how the Helm chart al
 
 image::gitops-persistence.png[gitops-persistence]
 
-Next, open the `values.yaml` file.
-
-image::gitops-values.png[gitops-values]
-
-Replace keys and values of `customerDatabase` with the following data that refer to the Oracle virtual machine on Red Hat OpenShift. It should look like this:
-
-[.console-input]
-[source,yaml]
-----
-  hostname: oracle-database
-  user: customer
-  password: redhat
-----
-
 [NOTE]
 ====
-Where is the `Save` button? VS Code server will autosave your changes, that is why you can’t find a `SAVE` button - no more losing code because you forgot to save. You can undo with `CTRL-Z` or `CMD-Z` or by using the `Edit -> Undo` menu option.
+The best developer practice for updating the *JDBC configuration* is that you change the configurations locally in VS Code server. Then, when you commit and push the changes to your Gitea repository, it will trigger the `OpenShift pipeline and GitOps` magically to update OpenShift `ConfigMap` and `Secret` automatically.
 ====
 
-Switch to the `Source Control` menu in VSCode. Click on `+` button to add the changes (_values.yaml_).
+Access link:https://argocd-server-retail-%USERID%.apps.%SUBDOMAIN%[ArgoCD web console^]. Click on `LOG VIA OPENSHIFT` button.
 
-Type `Update customerDatabase` in the comment. Then, commit it (e.g. _Command + Enter on macOS_) and click on `Sync Changes`.
+image::argocd-login.png[argocd-login]
 
-image::vscode-commit.png[vscode-commit]
-
-Access link:https://gitea.apps.%SUBDOMAIN%/%USERID%/app-mod-projects[your Gitea admin console^] with the following credentials:
+Then, enter your OpenShift login credentials.
 
 * Username: `%USERID%`
 * Password: `{openshift-password}`
 
-Once you logged in to the Gitea admin console, you will see the latest commit (e.g. _08fb9fb6f4 Update jdbc.url_).
+[NOTE]
+====
+We'll go deep dive into OpenShift GitOps in terms of the benefits, features, and integration in the next step.
+====
 
-image::gitea-update-file.png[gitea-update-file]
+You will see that the `customers-tomcat-gitops` status is *Degraded* because the application still refers to the old database hostname (e.g.*oracle-db-database*).
+
+Click on `applications`.
+
+image::argocd-application.png[argocd-application]
+
+Click on `APP DETAILS` to show up the detail page. Then, switch to `PARAMETER` tab to click on `EDIT`.
+
+image::argocd-application-details.png[argocd-application-details]
+
+Replace keys and values of `customerDatabase` with the following data that refer to the Oracle virtual machine on Red Hat OpenShift. It should look like this:
+
+* customerDatabase.hostname: `oracle-database`
+* customerDatabase.password: `redhat`
+
+image::argocd-application-update.png[argocd-application-update]
+
+Click on `SAVE`. Then, close the popup window by clicking `X` on the right top.
+
+Now you will see the `OutOfSync` status of the customers-tomcat-gitops application because you just only updated the ArgoCD's application parameter that is different than link:https://console-openshift-console.apps.%SUBDOMAIN%/k8s/ns/retail-%USERID%/secrets/customers-secret[customers-secret^] in the retail-%USERID% project. 
+
+image::argocd-application-outofsync.png[argocd-application-outofsync]
+
+Click on `SYNC`. Then, click on `SYNCHRONIZE` on the left popup window.
+
+image::argocd-application-sync.png[argocd-application-sync]
+
+The application should be synced in a second.
+
+image::argocd-application-synced.png[argocd-application-synced]
+
+Go back to the OpenShift web console, reveal the link:https://console-openshift-console.apps.%SUBDOMAIN%/k8s/ns/retail-%USERID%/secrets/customers-secret[customers-secret^]. You will see the updated the JDBC configurations.
+
+image::argocd-application-secret.png[argocd-application-secret]
 
 == 2.2. Run an OpenShift Pipelines
 
@@ -156,7 +176,7 @@ oc annotate deployment/customers app.openshift.io/connects-to='[{"apiVersion":"a
 oc label deployment/ordersfrontend app.kubernetes.io/part-of=ordersfrontend app.openshift.io/runtime=nodejs --overwrite && \
 oc annotate deployment/ordersfrontend app.openshift.io/connects-to=gateway --overwrite && \
 oc label deployment/gateway app.kubernetes.io/part-of=gateway app.openshift.io/runtime=spring --overwrite && \
-oc annotate deployment/gateway app.openshift.io/connects-to=inventory,orders,customers --overwrite 
+oc annotate deployment/gateway app.openshift.io/connects-to='["inventory","orders","customers",{"apiVersion":"apps/v1","kind":"Deployment","name":"customers"}]' --overwrite 
 ----
 
 [NOTE]
