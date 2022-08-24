@@ -3,7 +3,7 @@
 
 == Goals of this lab
 
-The goal is that you will build and deploy the modernized customer application to OpenShift using link:https://access.redhat.com/documentation/en-us/openshift_container_platform/4.11/html-single/cicd/index#about-redhat-openshift-gitops_understanding-openshift-gitops[OpenShift GitOps (ArgCD)^].
+The goal is to build and deploy the modernized customer application to OpenShift using link:https://access.redhat.com/documentation/en-us/openshift_container_platform/4.11/html-single/cicd/index#about-redhat-openshift-gitops_understanding-openshift-gitops[OpenShift GitOps (ArgoCD)^].
 
 * Update the configuration for the *gateway* service to now point to the modernized *customers* service.
 * Demonstrate that your *frontend* service still works as before.
@@ -71,7 +71,7 @@ You might see `Unknown` result for customers data since the customers applicatio
 
 == Summary
 
-You have now successfully deployed the new *customers* application with integrating OpenShift Pipeline and GitOps for the continuous delivery automation. You'll learn Learn how to extend an application using API management and implement an event driven architecture in `module 4 and 5`.
+You have now successfully deployed the new *customers* application by integrating OpenShift Pipeline and GitOps for the continuous delivery automation. You'll learn Learn how to extend an application using API management and implement an event driven architecture in `module 4 and 5`.
 
 == Additional Resources
 
