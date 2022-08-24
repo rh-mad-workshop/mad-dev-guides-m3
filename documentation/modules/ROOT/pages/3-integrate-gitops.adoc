@@ -1,4 +1,4 @@
-= 3. Integrate OpenShift GitOps - 25 minutes
+= 3. Integrate OpenShift GitOps - 20 minutes
 :imagesdir: ../assets/images
 
 == Goals of this lab
