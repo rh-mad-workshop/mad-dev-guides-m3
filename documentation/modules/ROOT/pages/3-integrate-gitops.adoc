@@ -24,11 +24,11 @@ Although there is no precise definition or agreed upon set of rules, the followi
 
 === 3.1.2 Update the Gateway Configuration
 
-Before you update the `Gateway` configuration, take a look at the current link:https://console-openshift-console.apps.%SUBDOMAIN%/k8s/ns/retail-%USERID%/configmaps/gateway-config[application.yaml^] data of the `gateway-config` ConfigMap.
+Before you update the `Gateway` configuration, take a look at the current link:https://console-openshift-console.%SUBDOMAIN%/k8s/ns/retail-%USERID%/configmaps/gateway-config[application.yaml^] data of the `gateway-config` ConfigMap.
 
 image::gateway-config.png[gateway-config]
 
-Go back to the link:https://argocd-server-retail-%USERID%.apps.%SUBDOMAIN%/applications/applications?view=tree&resource=&node=argoproj.io%2FApplication%2Fretail-%USERID%%2Fapplications%2F0&tab=parameters[APP DETAILS^] in the ArgoCD admin console. Click on `EDIT`.
+Go back to the link:https://argocd-server-retail-%USERID%.%SUBDOMAIN%/applications/applications?view=tree&resource=&node=argoproj.io%2FApplication%2Fretail-%USERID%%2Fapplications%2F0&tab=parameters[APP DETAILS^] in the ArgoCD admin console. Click on `EDIT`.
 
 image::gateway-config-argo.png[gateway-config-argo]
 
@@ -42,7 +42,7 @@ customersHost: customers
 
 Then, close the popup window by clicking `X` on the right top.
 
-Now you will see the `OutOfSync` status of the `gateway` application because you just only updated the ArgoCD's application parameter that is different than link:https://console-openshift-console.apps.%SUBDOMAIN%/k8s/ns/retail-%USERID%/configmaps/gateway-config[gateway-config ConfigMap^] in the retail-%USERID% project. 
+Now you will see the `OutOfSync` status of the `gateway` application because you just only updated the ArgoCD's application parameter that is different than link:https://console-openshift-console.%SUBDOMAIN%/k8s/ns/retail-%USERID%/configmaps/gateway-config[gateway-config ConfigMap^] in the retail-%USERID% project. 
 
 image::argocd-gateway-outofsync.png[argocd-gateway-outofsync]
 
@@ -60,7 +60,7 @@ image::gateway-new-configmap.png[gateway-new-configmap]
 
 == 3.2. Revisit the GLOBEX web page
 
-Let's go back to the `Customers` in the link:https://ordersfrontend-retail-%USERID%.apps.%SUBDOMAIN%[GLOBEX web page^]. You can find the frontend URL by running the following `oc` command in terminal on the _VS Code server_.
+Let's go back to the `Customers` in the link:https://ordersfrontend-retail-%USERID%.%SUBDOMAIN%[GLOBEX web page^]. You can find the frontend URL by running the following `oc` command in terminal on the _VS Code server_.
 
 image::frontend.png[Frontend]
 

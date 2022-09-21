@@ -37,7 +37,7 @@ image::gitops-persistence.png[gitops-persistence]
 The best developer practice for updating the *JDBC configuration* is that you change the configurations locally in VS Code server. Then, when you commit and push the changes to your Gitea repository, it will trigger the `OpenShift pipeline and GitOps` magically to update OpenShift `ConfigMap` and `Secret` automatically.
 ====
 
-Access link:https://argocd-server-retail-%USERID%.apps.%SUBDOMAIN%[ArgoCD web console^]. Click on `LOG VIA OPENSHIFT` button.
+Access link:https://argocd-server-retail-%USERID%.%SUBDOMAIN%[ArgoCD web console^]. Click on `LOG VIA OPENSHIFT` button.
 
 image::argocd-login.png[argocd-login]
 
@@ -70,7 +70,7 @@ image::argocd-application-update.png[argocd-application-update]
 
 Click on `SAVE`. Then, close the popup window by clicking `X` on the right top.
 
-Now you will see the `OutOfSync` status of the `customers-tomcat-gitops` application because you just only updated the ArgoCD's application parameter that is different than link:https://console-openshift-console.apps.%SUBDOMAIN%/k8s/ns/retail-%USERID%/secrets/customers-secret[customers-secret^] in the retail-%USERID% project. 
+Now you will see the `OutOfSync` status of the `customers-tomcat-gitops` application because you just only updated the ArgoCD's application parameter that is different than link:https://console-openshift-console.%SUBDOMAIN%/k8s/ns/retail-%USERID%/secrets/customers-secret[customers-secret^] in the retail-%USERID% project. 
 
 image::argocd-application-outofsync.png[argocd-application-outofsync]
 
@@ -82,7 +82,7 @@ The application should be synced in a second.
 
 image::argocd-application-synced.png[argocd-application-synced]
 
-Go back to the OpenShift web console, reveal the link:https://console-openshift-console.apps.%SUBDOMAIN%/k8s/ns/retail-%USERID%/secrets/customers-secret[customers-secret^]. You will see the updated the JDBC configurations.
+Go back to the OpenShift web console, reveal the link:https://console-openshift-console.%SUBDOMAIN%/k8s/ns/retail-%USERID%/secrets/customers-secret[customers-secret^]. You will see the updated the JDBC configurations.
 
 image::argocd-application-secret.png[argocd-application-secret]
 
@@ -115,7 +115,7 @@ The pipeline accepts the following parameters:
 
 In the future we will have a trigger and event listener on the pipeline. But for now you have to kick off the pipeline run manually.
 
-First, open a new browser to access the link:https://console-openshift-console.apps.%SUBDOMAIN%/dev-pipelines/ns/cicd-%USERID%[OpenShift Pipleline^].
+First, open a new browser to access the link:https://console-openshift-console.%SUBDOMAIN%/dev-pipelines/ns/cicd-%USERID%[OpenShift Pipleline^].
 
 Use the following credentials if you haven't logged in to the OpenShift cluster before. 
 
@@ -184,7 +184,7 @@ oc annotate deployment/gateway app.openshift.io/connects-to='["inventory","order
 You might have no connection between `gateway` and `customers`. In that case, you can add the connection by dragging in _Dev Console_.
 ====
 
-Go back to the link:https://console-openshift-console.apps.%SUBDOMAIN%/topology/ns/retail-%USERID%?view=graph[Topology View^] in `retail-%USERID%` project at Developer perspective, the applications deployment should appear as follows:
+Go back to the link:https://console-openshift-console.%SUBDOMAIN%/topology/ns/retail-%USERID%?view=graph[Topology View^] in `retail-%USERID%` project at Developer perspective, the applications deployment should appear as follows:
 
 image::app-topology.png[app-topology]
 
