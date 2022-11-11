@@ -60,7 +60,7 @@ image::gateway-new-configmap.png[gateway-new-configmap]
 
 == 3.2. Revisit the GLOBEX web page
 
-Let's go back to the `Customers` in the link:https://ordersfrontend-retail-%USERID%.%SUBDOMAIN%[GLOBEX web page^]. You can find the frontend URL by running the following `oc` command in terminal on the _VS Code server_.
+Let's go back to the `Customers` in the link:https://ordersfrontend-retail-%USERID%.%SUBDOMAIN%[GLOBEX web page^].
 
 image::frontend.png[Frontend]
 
