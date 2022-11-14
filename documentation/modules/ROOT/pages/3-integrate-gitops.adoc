@@ -12,7 +12,7 @@ The goal is to build and deploy the modernized customer application to OpenShift
 
 === 3.1.1 Why OpenShift GitOps?
 
-`GitOps` in short is a set of practices to use *Git pull requests* to manage infrastructure and application configurations. Git repository in GitOps is considered the only source of truth and contains the entire state of the system so that the trail of changes to the system state are visible and auditable.
+`GitOps` in short is a set of practices to use *Git pull requests* to manage infrastructure and application configurations. A Git repository in GitOps is considered the only source of truth and contains the entire state of the system so that the trail of changes to the system state are visible and auditable.
 
 Traceability of changes in GitOps is no novelty in itself as this approach is almost universally employed for the application source code. However GitOps advocates applying the same principles (`reviews`, `pull requests`, `tagging`, etc) to infrastructure and application configuration so that teams can benefit from the same assurance as they do for the application source code.
 
@@ -42,7 +42,7 @@ customersHost: customers
 
 Then, close the popup window by clicking `X` on the right top.
 
-Now you will see the `OutOfSync` status of the `gateway` application because you just only updated the ArgoCD's application parameter that is different than link:https://console-openshift-console.%SUBDOMAIN%/k8s/ns/retail-%USERID%/configmaps/gateway-config[gateway-config ConfigMap^] in the retail-%USERID% project. 
+Now you will see the `OutOfSync` status of the `gateway` application because you just only updated the ArgoCD's application parameter that is different than link:https://console-openshift-console.%SUBDOMAIN%/k8s/ns/retail-%USERID%/configmaps/gateway-config[gateway-config ConfigMap^] in the retail-%USERID% project.
 
 image::argocd-gateway-outofsync.png[argocd-gateway-outofsync]
 
@@ -66,7 +66,7 @@ image::frontend.png[Frontend]
 
 [NOTE]
 ====
-You might see `Unknown` result for customers data since the customers application can't access the database on OpenShift Virtualization with an error - `java.sql.SQLSyntaxErrorException: ORA-00942: table or view does not exist`. In that case, restart the `customers pod` via deleting the pod in OpenShift admin console.
+You might see `Unknown` result for customers data since the customers application can't access the database on OpenShift Virtualization with an error - `java.sql.SQLSyntaxErrorException: ORA-00942: table or view does not exist`. In that case, restart the `customers pod` by deleting the pod in OpenShift admin console.
 ====
 
 == Summary
