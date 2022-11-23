@@ -12,7 +12,7 @@ image::mod-strategies-m3.png[Modernization Strategies]
 
 [IMPORTANT]
 ====
-Globex's developer has already modernized the legacy application (*customers*) to the Red Hat OpenShift using Tackle assessment and analysis tool. In the meantime, the SRE team has also completed to migrate the Oracle database from Red Hat Virtualization to OpenShift Virtualization by `module 1` and `2`.
+Globex's developer has already modernized the legacy application (*customers*) to the Red Hat OpenShift using https://access.redhat.com/documentation/en-us/migration_toolkit_for_applications/6.0/html-single/introduction_to_the_migration_toolkit_for_applications/index[Migration Toolkit for Applications (MTA)^] assessment and analysis tool. In the meantime, the SRE team has also completed to migrate the Oracle database from Red Hat Virtualization to OpenShift Virtualization by `module 1` and `2`.
 ====
 
 This module will walk you through 2 of the phases (_Pipeline_, _GitOps_) to build advanced build and deployment capabilities as following steps:
@@ -90,7 +90,7 @@ Your OpenShift cluster is already configured with everything you need. Here are 
 * `Migration Toolkit for Virtualization` to facilitate the migration of the Oracle VM from Red Hat Virtualization to Red Hat OpenShift Container Platform
 * `OpenShift GitOps` to manage the deployed services using a GitOps approach through ArgoCD
 * `OpenShift Pipelines` to build the customer application from source code and deploy to the `retail` project using GitOps
-* `Migration Toolkit for Applications (Tackle)` to help modernize the customer service Java source code.
+* `Migration Toolkit for Applications` to help modernize the customer service Java source code.
 
 === 1.2.3. Visual Studio Code Server
 
