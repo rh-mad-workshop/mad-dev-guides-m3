@@ -40,7 +40,7 @@ Replace `customersHost` with the following value.
 customersHost: customers
 ----
 
-Then, close the popup window by clicking `X` on the right top.
+Then, click `Save` and close the popup window by clicking `X` on the right top.
 
 Now you will see the `OutOfSync` status of the `gateway` application because you just only updated the ArgoCD's application parameter that is different than link:https://console-openshift-console.%SUBDOMAIN%/k8s/ns/retail-%USERID%/configmaps/gateway-config[gateway-config ConfigMap^] in the retail-%USERID% project.
 
