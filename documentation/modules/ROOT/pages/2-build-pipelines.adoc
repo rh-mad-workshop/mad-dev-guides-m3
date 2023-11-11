@@ -58,10 +58,15 @@ image::argocd-application-details.png[argocd-application-details]
 
 Replace keys and values of `customerDatabase` with the following data that refer to the Oracle virtual machine on Red Hat OpenShift. It should look like this:
 
-* customerDatabase.hostname: `oracle-database`
+* customerDatabase.hostname: `postgresql-database`
 * customerDatabase.password: `redhat`
 
 image::argocd-application-update.png[argocd-application-update]
+
+[NOTE]
+====
+You probably see *user1* in the _user_ field at the bottom. The value won't be rendered to the _customers_ application by ArgoCD because it's the default value. You can see the actual value along with your username in the *VALUES* section. 
+====
 
 Click on `SAVE`, then close the popup window by clicking `X` on at the top right corner.
 
