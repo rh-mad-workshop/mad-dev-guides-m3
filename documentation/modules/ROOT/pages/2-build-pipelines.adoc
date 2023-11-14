@@ -6,10 +6,10 @@
 The goal of this exercise is to build and deploy the modernized customer application to OpenShift using link:https://access.redhat.com/documentation/en-us/openshift_container_platform/4.11/html-single/cicd/index#op-detailed-concepts[OpenShift Pipelines^]. You will accomplish this with the following steps:
 
 * Use the https://tekton.dev/[Tekton^] Pipeline to build and deploy the new, modernized application using Red Hat JBoss Web Server instead of Apache Tomcat as the runtime.
-* Set up the configuration for the *customers* service to connect to the Oracle database VM which is now running on OpenShift Container Platform
+* Set up the configuration for the *customers* service to connect to the legacy PostgreSQL database VM which is now running on OpenShift Container Platform
 * Test the *customers* service
 
-== 2.1. Update Oracle DBMS Connection using Helm
+== 2.1. Update PostgreSQL DBMS Connection using Helm
 
 === 2.1.1. Why OpenShift with Helm?
 
@@ -19,11 +19,11 @@ Helm can also be used to automate *day-1* tasks like installation and basic conf
 
 === 2.1.2. Update the Helm Chart for a new JDBC configuration
 
-The *customers* application in the OpenShift cluster currently has a connection failure because the application still tries to connect to the Oracle database running on RHV. To fix the issue, you need to update the *JDBC* configuration that points to the migrated Oracle database on OpenShift virtualization.
+The *customers* application in the OpenShift cluster currently has a connection failure because the application still tries to connect to the PostgreSQL database running on the legacy virtulization infrastructure. To fix the issue, you need to update the *JDBC* configuration that points to the migrated PostgreSQL database on OpenShift virtualization.
 
 [IMPORTANT]
 ====
-To save your time to go through the hands-on labs today, our SRE team has already migrated the VM running Oracle database to the OpenShift virtualization in the *retail-%USERID%* project.
+To save your time to go through the hands-on labs today, our SRE team has already migrated the legacy VM running PostgreSQL database to the OpenShift virtualization in the *retail-%USERID%* project.
 ====
 
 The JDBC configuration is currently managed by the _Helm chart_ to automate day 1 & 2 operations for the modernized Globex retail system. Let's go back to the link:https://codeserver-codeserver-%USERID%.%SUBDOMAIN%[VS Code server^] and explore the *helm/customer-tomcat-gitops* directory.
@@ -46,7 +46,7 @@ Then, enter your OpenShift login credentials.
 * Username: `%USERID%`
 * Password: `{openshift-password}`
 
-You will see that the `customers-tomcat-gitops` status is *Degraded* because the application still refers to the old database hostname (e.g.*oracle-db-database*).
+You will see that the `customers-tomcat-gitops` status is *Degraded* because the application still refers to the old database hostname (e.g.*postgresql-db-database*).
 
 Click on `applications`.
 
@@ -56,7 +56,7 @@ Click on `APP DETAILS` to show the detail page for the application. Then, switch
 
 image::argocd-application-details.png[argocd-application-details]
 
-Replace keys and values of `customerDatabase` with the following data that refer to the Oracle virtual machine on Red Hat OpenShift. It should look like this:
+Replace keys and values of `customerDatabase` with the following data that refer to the PostgreSQL virtual machine on Red Hat OpenShift. It should look like this:
 
 * customerDatabase.hostname: `postgresql-database`
 * customerDatabase.password: `redhat`
@@ -172,7 +172,7 @@ oc label deployment/orders app.kubernetes.io/part-of=orders app.openshift.io/run
 oc label deployment/postgresql-orders app.kubernetes.io/part-of=orders app.openshift.io/runtime=postgresql --overwrite && \
 oc annotate deployment/orders app.openshift.io/connects-to='[{"apiVersion":"apps/v1","kind":"Deployment","name":"postgresql-orders"}]' --overwrite && \
 oc label deployment/customers app.kubernetes.io/part-of=customers app.openshift.io/runtime=tomcat --overwrite && \
-oc annotate deployment/customers app.openshift.io/connects-to='[{"apiVersion":"apps/v1","kind":"VirtualMachine","name":"oracle-database"}]' --overwrite && \
+oc annotate deployment/customers app.openshift.io/connects-to='[{"apiVersion":"apps/v1","kind":"VirtualMachine","name":"postgresql-database"}]' --overwrite && \
 oc label deployment/ordersfrontend app.kubernetes.io/part-of=ordersfrontend app.openshift.io/runtime=nodejs --overwrite && \
 oc annotate deployment/ordersfrontend app.openshift.io/connects-to=gateway --overwrite && \
 oc label deployment/gateway app.kubernetes.io/part-of=gateway app.openshift.io/runtime=spring --overwrite && \
@@ -190,7 +190,7 @@ image::app-topology.png[app-topology]
 
 == Congratulations!
 
-You have built and deployed the modernized customer application to OpenShift using a CI/CD pipeline and connected the customer microservice to the new Oracle database running with OpenShift Virtualization.
+You have built and deployed the modernized customer application to OpenShift using a CI/CD pipeline and connected the customer microservice to the new PostgreSQL database running with OpenShift Virtualization.
 
 In the next step you will first update the `gateway` to connect to the new `customers` service using dynamic discovery (vs. static IP address).
 
