@@ -64,11 +64,6 @@ Let's go back to the `Customers` in the link:https://ordersfrontend-retail-%USER
 
 image::frontend.png[Frontend]
 
-[NOTE]
-====
-You might see `Unknown` result for customers data since the customers application can't access the database on OpenShift Virtualization with an error - `java.sql.SQLSyntaxErrorException: ORA-00942: table or view does not exist`. In that case, restart the `customers pod` by deleting the pod in OpenShift admin console.
-====
-
 == Summary
 
 You have now successfully deployed the new *customers* application by integrating OpenShift Pipeline and GitOps for the continuous delivery automation. You'll learn Learn how to extend an application using API management and implement an event driven architecture in `module 4 and 5`.
