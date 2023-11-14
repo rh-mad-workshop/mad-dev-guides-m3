@@ -32,7 +32,7 @@ Go back to the link:https://argocd-server-retail-%USERID%.%SUBDOMAIN%/applicatio
 
 image::gateway-config-argo.png[gateway-config-argo]
 
-Replace `customersHost` with the following value.
+Replace `customersHost IP address` in the upper text box as shown with the following value.
 
 [.console-input]
 [source,yaml]
