@@ -114,14 +114,16 @@ For simplicity in this exercise, you will trigger the pipeline run manually.
 
 First, open a new browser to access the link:https://console-openshift-console.%SUBDOMAIN%/dev-pipelines/ns/cicd-%USERID%[OpenShift Pipeline^].
 
-Use the following credentials if you haven't logged in to the OpenShift cluster before.
+Use the following credentials if you haven't logged in to the OpenShift cluster before. OpenShift is already integrated with https://access.redhat.com/products/red-hat-single-sign-on/[Red Hat Single Sign On^].
 
-image::openshift_login.png[openshift_login]
+image::sso_login.png[openshift_login]
 
-Login using your credentials:
+* Login using your credentials:
 
-* Username: `%USERID%`
-* Password: `{openshift-password}`
+** Username: `%USERID%`
+** Password: `{openshift-password}`
+
+* Click on *Sign In*
 
 Then, you will see a pre-defined `java-deployment` pipeline in the `cicd-%USERID%` project in the _Developer perspective_.
 
