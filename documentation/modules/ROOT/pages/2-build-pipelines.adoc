@@ -28,7 +28,7 @@ To save your time to go through the hands-on labs today, our SRE team has alread
 
 The JDBC configuration is currently managed by the _Helm chart_ to automate day 1 & 2 operations for the modernized Globex retail system. Let's go back to the link:https://codeserver-codeserver-%USERID%.%SUBDOMAIN%[VS Code server^] and explore the *helm/customer-tomcat-gitops* directory.
 
-Take a look at `persistence.properties` file to understand how the Helm chart allows you to define the JDBC configuration.
+Take a look at `secret/persistence.properties` file to understand how the Helm chart allows you to define the JDBC configuration.
 
 image::gitops-persistence.png[gitops-persistence]
 
@@ -48,9 +48,11 @@ Then, enter your OpenShift login credentials.
 
 You will see that the `customers-tomcat-gitops` status is *Degraded* because the application still refers to the old database hostname (e.g.*postgresql-db-database*).
 
+image::argocd-application-degrade.png[argocd-application-degrade]
+
 Click on `applications`.
 
-image::argocd-application.png[argocd-application]
+image::argocd-application-click-applications.png[argocd-application-click-applications]
 
 Click on `APP DETAILS` to show the detail page for the application. Then, switch to `PARAMETER` tab and click on `EDIT`.
 
@@ -82,7 +84,11 @@ It will take a few moments to synchronize the application. Wait for it to finish
 
 image::argocd-application-synced.png[argocd-application-synced]
 
-CLick this link to go back to the OpenShift web console and look at the link:https://console-openshift-console.%SUBDOMAIN%/k8s/ns/retail-%USERID%/secrets/customers-secret[customers-secret^]. You will see the updated the JDBC configuration values.
+Click to go back to the OpenShift web console and look at the link:https://console-openshift-console.%SUBDOMAIN%/k8s/ns/retail-%USERID%/secrets/customers-secret[customers-secret^]. 
+
+image::argocd-application-secret-reveral.png[argocd-application-secret-reveral]
+
+And Click on `Reveral values` to see the updated the JDBC configuration values.
 
 image::argocd-application-secret.png[argocd-application-secret]
 
