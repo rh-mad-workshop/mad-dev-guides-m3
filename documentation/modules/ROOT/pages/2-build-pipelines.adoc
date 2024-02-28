@@ -37,14 +37,23 @@ image::gitops-persistence.png[gitops-persistence]
 The best developer practice for updating the *JDBC configuration* is that you change the configurations locally in VS Code server. Then, when you commit and push the changes to your Gitea repository, it will trigger the `OpenShift pipeline and GitOps` to automatically update OpenShift `ConfigMap` and `Secret` objects.
 ====
 
-Access link:https://argocd-server-retail-%USERID%.%SUBDOMAIN%[ArgoCD web console^]. Click `LOG IN VIA OPENSHIFT`:
+Access link:https://argocd-server-retail-%USERID%.%SUBDOMAIN%[ArgoCD web console^]. Click on `LOG IN VIA OPENSHIFT`:
 
 image::argocd-login.png[argocd-login]
 
-Then, enter your OpenShift login credentials.
+Use the following credentials if you haven't logged in to the OpenShift cluster before. OpenShift is already integrated with https://access.redhat.com/products/red-hat-single-sign-on/[Red Hat Single Sign On^].
 
-* Username: `%USERID%`
-* Password: `{openshift-password}`
+image::sso_login.png[openshift_login]
+
+* Login using your credentials:
+
+** Username: `%USERID%`
+** Password: `{openshift-password}`
+
+* Click on *Allow selected permissions*
+
+image::argo_authorize.png[openshift_login]
+
 
 You will see that the `customers-tomcat-gitops` status is *Degraded* because the application still refers to the old database hostname (e.g.*postgresql-db-database*).
 
@@ -123,16 +132,8 @@ It is possible to configure webhooks and event listeners/triggers to automatical
 
 For simplicity in this exercise, you will trigger the pipeline run manually.
 
-First, open a new browser to access the link:https://console-openshift-console.%SUBDOMAIN%/dev-pipelines/ns/cicd-%USERID%[OpenShift Pipeline^].
+Open a new browser to access the link:https://console-openshift-console.%SUBDOMAIN%/dev-pipelines/ns/cicd-%USERID%[OpenShift Pipeline^].
 
-Use the following credentials if you haven't logged in to the OpenShift cluster before.
-
-image::openshift_login.png[openshift_login]
-
-Login using your credentials:
-
-* Username: `%USERID%`
-* Password: `{openshift-password}`
 
 Then, you will see a pre-defined `java-deployment` pipeline in the `cicd-%USERID%` project in the _Developer perspective_.
 
